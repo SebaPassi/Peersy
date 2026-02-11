@@ -16,7 +16,7 @@ export default function Home() {
 
           {/* Subtext */}
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-            The trusted marketplace exclusively for UoM students.
+            The trusted marketplace for University of Manchester students. Textbooks, electronics, furniture, and more.
           </p>
 
           {/* CTA Button */}
