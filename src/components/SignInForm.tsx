@@ -1,13 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
+import { isAllowedEmail, ALLOWED_EMAIL_MESSAGE } from '@/lib/auth';
 
 export default function SignInForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   // Supabase
@@ -16,9 +17,16 @@ export default function SignInForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
-    
+
+    // Validation of email before creating account and calling supabase
+    if (!isAllowedEmail(email)) {
+      setError(ALLOWED_EMAIL_MESSAGE);
+      return;
+    }
+
+    setLoading(true);
+
     // Supabase
     const supabase = createClient();
 
@@ -33,8 +41,9 @@ export default function SignInForm() {
       return;
     }
 
-    router.refresh();
-    router.push("/");
+    // router.refresh();
+    // router.push("/");
+    window.location.href = '/';
   };
 
   return (
@@ -52,7 +61,10 @@ export default function SignInForm() {
 
         <form onSubmit={handleSubmit} className="space-y-6 mb-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-white mb-2"
+            >
               Email
             </label>
             <input
@@ -66,7 +78,10 @@ export default function SignInForm() {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-white mb-2"
+            >
               Password
             </label>
             <input
@@ -84,7 +99,7 @@ export default function SignInForm() {
             disabled={loading}
             className="w-full rounded-lg bg-purple-600 py-3 font-medium text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
           >
-            {loading ? "Loading..." : "Sign in"}
+            {loading ? 'Loading...' : 'Sign in'}
           </button>
         </form>
 
@@ -95,8 +110,11 @@ export default function SignInForm() {
         )}
 
         <p className="mt-6 text-center text-sm text-gray-400">
-          Don’t have an account?{" "}
-          <Link href="/signup" className="text-purple-400 hover:text-purple-300">
+          Don’t have an account?{' '}
+          <Link
+            href="/signup"
+            className="text-purple-400 hover:text-purple-300"
+          >
             Sign up
           </Link>
         </p>

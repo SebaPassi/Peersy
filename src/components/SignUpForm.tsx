@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { isAllowedEmail, ALLOWED_EMAIL_MESSAGE } from '@/lib/auth';
 
 export default function SignUpForm() {
   const [fullName, setFullName] = useState('');
@@ -18,9 +19,16 @@ export default function SignUpForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
     setMessage(null);
+
+    // Validation of email before creating account and calling supabase
+    if (!isAllowedEmail(email)) {
+      setError(ALLOWED_EMAIL_MESSAGE);
+      return;
+    }
+
+    setLoading(true);
 
     // Supabase
     const supabase = createClient();
@@ -43,8 +51,9 @@ export default function SignUpForm() {
     // Debugging purposes
     console.log({ data });
 
-    router.refresh();
-    router.push('/');
+    // router.refresh();
+    // router.push('/');
+    window.location.href = '/';
   };
 
   return (
@@ -137,7 +146,10 @@ export default function SignUpForm() {
 
         <p className="mt-6 text-center text-sm text-gray-400">
           Already have an account?{' '}
-          <Link href="/login" className="text-purple-400 hover:text-purple-300">
+          <Link
+            href="/signin"
+            className="text-purple-400 hover:text-purple-300"
+          >
             Sign in
           </Link>
         </p>

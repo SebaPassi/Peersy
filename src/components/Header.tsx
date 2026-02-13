@@ -3,6 +3,7 @@ import Logo from './Logo';
 import SignOutButton from './SignOutButton';
 
 export default function Header({ user }: { user: { id: string } | null }) {
+  console.log({ user });
   return (
     <header className="container mx-auto px-6 py-6 flex items-center justify-between">
       {/* Logo */}
