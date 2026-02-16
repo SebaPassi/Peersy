@@ -15,19 +15,19 @@ export default function Header({ user }: { user: { id: string } | null }) {
           href="/"
           className="text-white hover:text-purple-400 transition-colors font-medium"
         >
-          HOME
-        </Link>
-        <Link
-          href="/"
-          className="text-white hover:text-purple-400 transition-colors font-medium"
-        >
           CATEGORIES
         </Link>
         <Link
-          href="/press"
+          href="/#faq"
           className="text-white hover:text-purple-400 transition-colors font-medium"
         >
           HOW IT WORKS
+        </Link>
+        <Link
+          href="/contact"
+          className="text-white hover:text-purple-400 transition-colors font-medium"
+        >
+          CONTACT US
         </Link>
       </nav>
 

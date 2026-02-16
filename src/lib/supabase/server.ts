@@ -13,13 +13,7 @@ export async function createClient() {
           return cookieStore.getAll();
         },
         setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options),
-            );
-          } catch (error) {
-            console.log(error);
-          }
+          // No-op in Server Component context; middleware handles session refresh.
         },
       },
     },

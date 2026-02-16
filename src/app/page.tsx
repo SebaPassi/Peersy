@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import FAQ from '@/components/FAQ';
+import { FAQ_ITEMS } from '@/lib/faq-data';
 
 export default async function Home() {
   // Supabase session management
@@ -46,6 +48,9 @@ export default async function Home() {
           </div>
         </div>
       </main>
+
+      {/* FAQ Section */}
+      <FAQ items={FAQ_ITEMS} />
 
       {/* Partner Logos Section */}
       <footer className="container mx-auto px-6 py-16 border-t border-gray-800">
