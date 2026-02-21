@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import type { Profile, Listing, Wishlist, Review } from '@/types/database';
 import ScrollToTop from '@/components/ScrollToTop';
+import Image from 'next/image';
 
 export const metadata = {
   title: 'Dashboard | Peersy',
@@ -63,11 +64,21 @@ export default async function DashboardPage() {
         <section className="rounded-2xl border border-gray-800 bg-gray-900/80 p-8 mb-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-purple-600/30 flex items-center justify-center text-2xl font-bold text-purple-300">
-                {profileData?.full_name?.charAt(0)?.toUpperCase() ??
-                  user.email?.charAt(0)?.toUpperCase() ??
-                  '?'}
-              </div>
+              {profileData?.avatar_url ? (
+                <Image
+                  src={profileData.avatar_url}
+                  alt="Avatar"
+                  width={64}
+                  height={64}
+                  className="w-16 h-16 rounded-full object-cover border border-gray-700"
+                />
+              ) : (
+                <div className="w-16 h-16 rounded-full bg-purple-600/30 flex items-center justify-center text-2xl font-bold text-purple-300">
+                  {profileData?.full_name?.charAt(0)?.toUpperCase() ??
+                    user.email?.charAt(0)?.toUpperCase() ??
+                    '?'}
+                </div>
+              )}
               <div>
                 <h1 className="text-2xl font-bold text-white">
                   {profileData?.full_name ?? 'My profile'}

@@ -18,7 +18,7 @@ export default function Header({ user }: { user: { id: string } | null }) {
           CATEGORIES
         </Link>
         <Link
-          href="/#faq"
+          href="/#how-it-works"
           className="text-white hover:text-purple-400 transition-colors font-medium"
         >
           HOW IT WORKS

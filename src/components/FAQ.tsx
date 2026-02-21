@@ -11,7 +11,7 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="container mx-auto px-6 py-16 md:py-24">
+    <section id="faq" className="container mx-auto px-6 py-8 md:py-24">
       <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-10">
         Frequently Asked Questions
       </h2>

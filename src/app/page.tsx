@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import FAQ from '@/components/FAQ';
 import { FAQ_ITEMS } from '@/lib/faq-data';
+import HowItWorks from '@/components/HowItWorks';
 
 export default async function Home() {
   // Supabase session management
@@ -48,6 +49,9 @@ export default async function Home() {
           </div>
         </div>
       </main>
+
+      {/* How it works Section */}
+      <HowItWorks />
 
       {/* FAQ Section */}
       <FAQ items={FAQ_ITEMS} />
