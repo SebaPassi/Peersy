@@ -1,6 +1,23 @@
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase/server';
+import NewListingForm from '@/components/NewListingForm';
 
-export default function NewListingPage() {
+export const metadata = {
+  title: 'New listing | Peersy',
+  description: 'Create a new listing on Peersy',
+};
+
+export default async function NewListingPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect('/signin');
+  }
+
   return (
     <div className="min-h-screen bg-pattern">
       <div className="container mx-auto px-6 py-12">
@@ -10,8 +27,10 @@ export default function NewListingPage() {
         >
           ← Back to dashboard
         </Link>
-        <h1 className="text-2xl font-bold text-white mb-4">New listing</h1>
-        <p className="text-gray-400">Create listing form coming soon.</p>
+        <h1 className="text-2xl font-bold text-white mb-8">
+          Create a new listing
+        </h1>
+        <NewListingForm userId={user.id} />
       </div>
     </div>
   );
