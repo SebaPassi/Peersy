@@ -124,7 +124,7 @@ export default async function DashboardPage() {
                   >
                     <div>
                       <Link
-                        href={`/listings/${listing.id}`}
+                        href={`dashboard/listings/${listing.id}`}
                         className="font-medium text-white hover:text-purple-400"
                       >
                         {listing.title}

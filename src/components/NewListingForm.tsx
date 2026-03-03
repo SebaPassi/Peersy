@@ -65,6 +65,9 @@ export default function NewListingForm({ userId }: { userId: string }) {
     // At this point the file is just in browser's memory
     const newPreviews = updatedFiles.map((f) => URL.createObjectURL(f));
     setPreviews(newPreviews);
+
+    // Reset so the same file can be selected again
+    e.target.value = '';
   }
 
   // Funtion to remove an image
@@ -82,10 +85,36 @@ export default function NewListingForm({ userId }: { userId: string }) {
     e.preventDefault();
     setError(null);
 
+    // Array to handle errors
+    const errors: string[] = [];
+
+    if (!title.trim()) {
+      errors.push('Title is required.');
+    }
+
     // Validation of price
     const parsedPrice = parseFloat(price);
-    if (isNaN(parsedPrice) || parsedPrice < 0) {
-      setError('Please enter a valid price.');
+    if (!price || isNaN(parsedPrice) || parsedPrice < 0) {
+      errors.push('Please enter a valid price.');
+    }
+
+    // Category validation
+    if (!category) {
+      errors.push('Category is required.');
+    }
+
+    // Condition validation
+    if (!condition) {
+      errors.push('Condition is required.');
+    }
+
+    // Pictures validation
+    if (files.length === 0) {
+      errors.push('At least one photo is required.');
+    }
+
+    if (errors.length > 0) {
+      setError(errors.join('\n'));
       return;
     }
 
@@ -148,15 +177,10 @@ export default function NewListingForm({ userId }: { userId: string }) {
 
   // Render component
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
+    <form onSubmit={handleSubmit} noValidate className="max-w-2xl space-y-6">
       {/* Title */}
       <div>
-        <label
-          htmlFor="title"
-          className="block text-sm font-medium text-white mb-2"
-        >
-          Title
-        </label>
+        Title <span className="text-red-400">*</span>
         <input
           id="title"
           type="text"
@@ -193,7 +217,7 @@ export default function NewListingForm({ userId }: { userId: string }) {
           htmlFor="price"
           className="block text-sm font-medium text-white mb-2"
         >
-          Price (£)
+          Price (£) <span className="text-red-400">*</span>
         </label>
         <input
           id="price"
@@ -215,7 +239,7 @@ export default function NewListingForm({ userId }: { userId: string }) {
             htmlFor="category"
             className="block text-sm font-medium text-white mb-2"
           >
-            Category
+            Category <span className="text-red-400">*</span>
           </label>
           <select
             id="category"
@@ -235,7 +259,7 @@ export default function NewListingForm({ userId }: { userId: string }) {
             htmlFor="condition"
             className="block text-sm font-medium text-white mb-2"
           >
-            Condition
+            Condition <span className="text-red-400">*</span>
           </label>
           <select
             id="condition"
@@ -273,7 +297,7 @@ export default function NewListingForm({ userId }: { userId: string }) {
       {/* Images */}
       <div>
         <label className="block text-sm font-medium text-white mb-2">
-          Photos (up to 5)
+          Photos (at least 1, up to 5)
         </label>
         {previews.length > 0 && (
           <div className="flex gap-3 mb-3 flex-wrap">
@@ -316,15 +340,24 @@ export default function NewListingForm({ userId }: { userId: string }) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-lg bg-purple-600 py-3 font-medium text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
+        className="w-full rounded-lg bg-purple-600 py-3 font-medium text-white transition-colors hover:bg-purple-700 disabled:opacity-50 hover:cursor-pointer"
       >
         {loading ? 'Creating...' : 'Create listing'}
       </button>
 
       {error && (
-        <p className="text-sm text-red-400 bg-red-400/10 rounded-lg p-3">
-          {error}
-        </p>
+        <div className="lg:w-80 lg:flex-shrink-0">
+          <div className="lg:sticky lg:top-24 rounded-xl border border-red-400/30 bg-red-400/10 p-5">
+            <h3 className="text-sm font-semibold text-red-400 mb-2">
+              Please fix the following
+            </h3>
+            <ul className="text-sm text-red-400 space-y-1 list-disc list-inside">
+              {error.split('\n').map((msg, i) => (
+                <li key={i}>{msg}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
       )}
     </form>
   );

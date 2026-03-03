@@ -37,12 +37,15 @@ export default async function ListingPage({
     .eq('id', id)
     .single();
 
+  // If the listing wasn't found
   if (!listing) {
     notFound();
   }
 
+  // Telling typescript that: "Trust me, this matches my Listing Type"
   const typedListing = listing as Listing;
 
+  // Fetch seller of the product
   const { data: seller } = await supabase
     .from('profiles')
     .select('id, full_name, avatar_url')
@@ -54,10 +57,12 @@ export default async function ListingPage({
     'id' | 'full_name' | 'avatar_url'
   > | null;
 
+  // Gets the current user (is there someone logged in?)
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Wishlist logic
   let isWishlisted = false;
   if (user) {
     const { data: wishlistRow } = await supabase
@@ -66,9 +71,10 @@ export default async function ListingPage({
       .eq('user_id', user.id)
       .eq('listing_id', id)
       .maybeSingle();
-    isWishlisted = !!wishlistRow;
+    isWishlisted = !!wishlistRow; // Converts null -> false and object -> true
   }
 
+  // Checks if the current user is the owner of the product
   const isOwner = user?.id === typedListing.seller_id;
 
   const conditionLabels: Record<string, string> = {
@@ -78,6 +84,7 @@ export default async function ListingPage({
     fair: 'Fair',
   };
 
+  // Component to be rendered
   return (
     <div className="min-h-screen bg-pattern">
       <div className="container mx-auto px-6 py-12">
