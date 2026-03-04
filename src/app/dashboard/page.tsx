@@ -135,8 +135,16 @@ export default async function DashboardPage() {
                     </div>
                     <Link
                       href={`/dashboard/listings/${listing.id}/edit`}
-                      className="text-sm text-purple-400 hover:text-purple-300"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-purple-600/50 bg-purple-600/10 px-3 py-1.5 text-sm font-medium text-purple-400 hover:bg-purple-600/20 hover:text-purple-300 transition-colors"
                     >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-3.5 w-3.5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                      </svg>
                       Edit
                     </Link>
                   </li>
