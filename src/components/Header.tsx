@@ -12,10 +12,10 @@ export default function Header({ user }: { user: { id: string } | null }) {
       {/* Navigation */}
       <nav className="hidden md:flex items-center gap-8">
         <Link
-          href="/"
+          href="/explore"
           className="text-white hover:text-purple-400 transition-colors font-medium"
         >
-          CATEGORIES
+          EXPLORE
         </Link>
         <Link
           href="/#how-it-works"
