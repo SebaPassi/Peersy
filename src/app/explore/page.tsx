@@ -116,12 +116,12 @@ export default async function ExplorePage({
         {/* Listing grid */}
         {listings.length === 0 ? (
           <div className="rounded-2xl border border-gray-800 bg-gray-900/80 p-12 text-center">
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-lg mb-3">
               No listings match your filters.
             </p>
             <Link
               href="/explore"
-              className="inline-block mt-4 text-purple-400 hover:text-purple-300 text-sm"
+              className="rounded-full bg-purple-600/20 px-5 py-2 text-sm font-semibold text-purple-400 hover:bg-purple-600/30 transition-colors hover:cursor-pointer"
             >
               Clear all filters
             </Link>
@@ -131,7 +131,7 @@ export default async function ExplorePage({
             {listings.map((listing) => (
               <Link
                 key={listing.id}
-                href={`/dashboard/listings/${listing.id}`}
+                href={`/listings/${listing.id}`}
                 className="group rounded-2xl border border-gray-800 bg-gray-900/80 overflow-hidden hover:border-purple-600/50 transition-colors"
               >
                 {/* Thumbnail */}

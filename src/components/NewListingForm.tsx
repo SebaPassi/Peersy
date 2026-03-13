@@ -172,7 +172,7 @@ export default function NewListingForm({ userId }: { userId: string }) {
     }
 
     // Redirect to the show page of the new listing added
-    window.location.href = `/dashboard/listings/${data.id}`;
+    window.location.href = `/listings/${data.id}`;
   }
 
   // Render component

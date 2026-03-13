@@ -199,17 +199,87 @@ export default function ExploreFilters() {
         </div>
       </div>
 
-      {/* Clear filters */}
+      {/* Active filter chips */}
       {hasFilters && (
-        <button
-          onClick={() => {
-            setSearch('');
-            router.push('/explore');
-          }}
-          className="rounded-full bg-purple-600/20 px-5 py-2 text-sm font-semibold text-purple-400 hover:bg-purple-600/30 transition-colors hover:cursor-pointer"
-        >
-          Clear filters
-        </button>
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs text-gray-500">Active filters:</span>
+
+            {search && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-cyan-500/15 border border-cyan-400/30 px-3 py-1 text-xs font-medium text-cyan-300">
+                Search: {search}
+                <button
+                  onClick={() => {
+                    setSearch('');
+                    pushParams({ q: '' });
+                  }}
+                  className="ml-0.5 hover:text-white transition-colors"
+                >
+                  ×
+                </button>
+              </span>
+            )}
+
+            {activeCategory && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-purple-600/20 border border-purple-500/30 px-3 py-1 text-xs font-medium text-purple-300">
+                Category: {activeCategory}
+                <button
+                  onClick={() => pushParams({ category: '' })}
+                  className="ml-0.5 hover:text-white transition-colors"
+                >
+                  ×
+                </button>
+              </span>
+            )}
+
+            {activeCondition && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 px-3 py-1 text-xs font-medium text-emerald-300">
+                Condition:{' '}
+                {CONDITIONS.find((c) => c.value === activeCondition)?.label}
+                <button
+                  onClick={() => pushParams({ condition: '' })}
+                  className="ml-0.5 hover:text-white transition-colors"
+                >
+                  ×
+                </button>
+              </span>
+            )}
+
+            {minPrice && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/15 border border-amber-400/30 px-3 py-1 text-xs font-medium text-amber-300">
+                Min: £{minPrice}
+                <button
+                  onClick={() => pushParams({ min_price: '' })}
+                  className="ml-0.5 hover:text-white transition-colors"
+                >
+                  ×
+                </button>
+              </span>
+            )}
+
+            {maxPrice && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-pink-500/15 border border-pink-400/30 px-3 py-1 text-xs font-medium text-pink-300">
+                Max: £{maxPrice}
+                <button
+                  onClick={() => pushParams({ max_price: '' })}
+                  className="ml-0.5 hover:text-white transition-colors"
+                >
+                  ×
+                </button>
+              </span>
+            )}
+          </div>
+
+          <button
+            onClick={() => {
+              setSearch('');
+              router.push('/explore');
+            }}
+            className="shrink-0 rounded-full bg-purple-600/20 px-5 py-2 text-sm font-semibold text-purple-400 hover:bg-purple-600/30 transition-colors hover:cursor-pointer"
+          >
+            Clear filters
+          </button>
+        </div>
       )}
     </div>
   );

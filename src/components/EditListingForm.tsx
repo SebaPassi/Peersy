@@ -140,7 +140,7 @@ export default function EditListingForm({ listing }: { listing: Listing }) {
       return;
     }
 
-    window.location.href = `/dashboard/listings/${listing.id}`;
+    window.location.href = `/listings/${listing.id}`;
   }
 
   return (

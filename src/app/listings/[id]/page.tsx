@@ -88,12 +88,20 @@ export default async function ListingPage({
   return (
     <div className="min-h-screen bg-pattern">
       <div className="container mx-auto px-6 py-12">
-        <Link
-          href="/"
-          className="text-purple-400 hover:text-purple-300 mb-8 inline-block"
-        >
-          ← Back to marketplace
-        </Link>
+        <div className="flex flex-col items-start gap-1 mb-8">
+          <Link
+            href="/dashboard"
+            className="text-purple-400 hover:text-purple-300"
+          >
+            ← Back to dashboard
+          </Link>
+          <Link
+            href="/explore"
+            className="text-purple-400 hover:text-purple-300"
+          >
+            ← Back to explore
+          </Link>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Images */}
